@@ -1,0 +1,29 @@
+### Farmers - All
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farmers
+Accept: application/json
+
+### Farms - All
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms
+Accept: application/json
+
+### Farms - By Id
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms/1
+Accept: application/json
+
+### Farms - By Farmer
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms?idFarmer=1
+Accept: application/json
+
+### Farms - Total Size
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms/1/size
+Accept: application/json
+
+### Ponds - By Id
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/ponds/1
+Accept: application/json
+
+### Ponds - By Farm
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/ponds?idFarm=1
+Accept: application/json
+
+###
