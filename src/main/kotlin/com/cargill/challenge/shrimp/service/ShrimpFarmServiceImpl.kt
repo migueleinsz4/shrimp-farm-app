@@ -103,7 +103,7 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
     }
 
     @Transactional(readOnly = true)
-    override fun calculateFarmTotalSize(id: Long): ApiResponse<FarmTotalSizeDto> {
+    override fun calculateFarmTotalSize(id: Long, areaUnit: String): ApiResponse<FarmTotalSizeDto> {
         val ponds = this.pondRepository.findAllByFarmIdAndDeleted(PondProj::class.java, id)
 
         val farmTotalSize = ponds.map { it.size }.fold(BigDecimal.ZERO) {sum, element -> sum + element}
@@ -113,7 +113,8 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
                 FarmTotalSizeDto(
                         id,
                         ponds.size,
-                        farmTotalSize
+                        farmTotalSize,
+                        areaUnit
                 )
         )
     }

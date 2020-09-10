@@ -4,6 +4,7 @@ import com.cargill.challenge.shrimp.dto.FarmDto
 import com.cargill.challenge.shrimp.dto.FarmTotalSizeDto
 import com.cargill.challenge.shrimp.dto.PondDto
 import com.cargill.challenge.shrimp.util.ApiResponse
+import com.cargill.challenge.shrimp.util.AreaUnit
 
 interface ShrimpFarmService {
     // Farmer
@@ -16,7 +17,7 @@ interface ShrimpFarmService {
     fun <T> findFarmById(projection: Class<T>, id: Long): ApiResponse<T>
     fun <T> findAllFarms(projection: Class<T>): ApiResponse<List<T>>
     fun <T> findAllFarmsByFarmer(projection: Class<T>, idFarmer: Long): ApiResponse<List<T>>
-    fun calculateFarmTotalSize(id: Long): ApiResponse<FarmTotalSizeDto>
+    fun calculateFarmTotalSize(id: Long, areaUnit: String = AreaUnit.HECTARE.name): ApiResponse<FarmTotalSizeDto>
     // Pond
     fun savePond(pondDto: PondDto): ApiResponse<Long>
     fun deletePond(id: Long): ApiResponse<Long>
