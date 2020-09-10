@@ -2,6 +2,10 @@
 GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farmers
 Accept: application/json
 
+### Farmers - By Username
+GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farmers?username=jsnow
+Accept: application/json
+
 ### Farms - All
 GET http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms
 Accept: application/json
