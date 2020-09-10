@@ -1,0 +1,48 @@
+### Farms - Create
+POST http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms
+Content-Type: application/json
+
+{
+  "name": "NEW FARM 01",
+  "idFarmer": 1
+}
+
+### Farms - Update
+PUT http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "UPDATED FARM 01"
+}
+
+### Farms - Delete
+DELETE http://localhost:8081/cargill-shrimp-farm/api/v1.0/farms/5
+Content-Type: application/json
+
+### Ponds - Create
+POST http://localhost:8081/cargill-shrimp-farm/api/v1.0/ponds
+Content-Type: application/json
+
+{
+  "name": "NEW POND 01",
+  "size": "20.00",
+  "idFarm": 3
+}
+
+### Ponds - Update
+PUT http://localhost:8081/cargill-shrimp-farm/api/v1.0/ponds
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "UPDATED FARM 01",
+  "size": "30.00"
+}
+
+### Ponds - Delete
+DELETE http://localhost:8081/cargill-shrimp-farm/api/v1.0/ponds/3
+Content-Type: application/json
+
+###
+

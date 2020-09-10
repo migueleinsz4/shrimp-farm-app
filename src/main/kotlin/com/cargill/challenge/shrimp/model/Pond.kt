@@ -16,15 +16,15 @@ class Pond (
     var name: String,
     @Column(name = "size", nullable = false, precision = 10, scale = 2)
     var size: BigDecimal,
-    @Column(name = "stock_date")
-    var stockDate: LocalDateTime?,
-    @Column(name = "last_feed_date")
-    var lastFeedDate: LocalDateTime?,
-    @Column(name = "harvest_date")
-    var harvestDate: LocalDateTime?,
     @ManyToOne
     @JoinColumn(name = "id_farm", nullable = false)
     var farm: Farm,
+    @Column(name = "stock_date")
+    var stockDate: LocalDateTime? = null,
+    @Column(name = "last_feed_date")
+    var lastFeedDate: LocalDateTime? = null,
+    @Column(name = "harvest_date")
+    var harvestDate: LocalDateTime? = null,
     @Column(name = "deleted", nullable = false)
     var deleted: Boolean = false
 )

@@ -36,9 +36,6 @@ class InitialDataLoaderImpl(private val farmerRepository: FarmerRepository) : In
                 null,
                 "Pond 1 Farm J1",
                 BigDecimal("10"),
-                null,
-                null,
-                null,
                 farmJ1
         )
 
@@ -46,9 +43,6 @@ class InitialDataLoaderImpl(private val farmerRepository: FarmerRepository) : In
                 null,
                 "Pond 2 Farm J1",
                 BigDecimal("10"),
-                null,
-                null,
-                null,
                 farmJ1
         )
 
@@ -75,9 +69,6 @@ class InitialDataLoaderImpl(private val farmerRepository: FarmerRepository) : In
                 null,
                 "Pond 1 Farm S1",
                 BigDecimal("10"),
-                null,
-                null,
-                null,
                 farmS1
         )
 
@@ -85,9 +76,6 @@ class InitialDataLoaderImpl(private val farmerRepository: FarmerRepository) : In
                 null,
                 "Pond 1 Farm S2",
                 BigDecimal("10"),
-                null,
-                null,
-                null,
                 farmS2
         )
 

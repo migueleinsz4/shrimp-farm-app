@@ -1,8 +1,6 @@
 package com.cargill.challenge.shrimp.controller
 
-import com.cargill.challenge.shrimp.dto.FarmProj
-import com.cargill.challenge.shrimp.dto.FarmerProj
-import com.cargill.challenge.shrimp.dto.PondProj
+import com.cargill.challenge.shrimp.dto.*
 import com.cargill.challenge.shrimp.service.ShrimpFarmService
 import com.cargill.challenge.shrimp.util.ApiResponse
 import com.cargill.challenge.shrimp.util.ResponseCode
@@ -13,7 +11,9 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/v1.0")
 class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
-
+    /*
+        Farmers
+     */
     @GetMapping("/farmers")
     fun findFarmers(@RequestParam(required = false) username: String?): ResponseEntity<Any> {
         val result = if (username == null)
@@ -23,6 +23,33 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
 
         return ResponseEntity(
                 result,
+                HttpStatus.OK
+        )
+    }
+
+    /*
+        Farms
+     */
+    @PostMapping("/farms")
+    fun createFarm(@RequestBody farmDto: FarmDto): ResponseEntity<Any> {
+        return ResponseEntity(
+                this.shrimpFarmService.saveFarm(farmDto),
+                HttpStatus.CREATED
+        )
+    }
+
+    @PutMapping("/farms")
+    fun updateFarm(@RequestBody farmDto: FarmDto): ResponseEntity<Any> {
+        return ResponseEntity(
+                this.shrimpFarmService.saveFarm(farmDto),
+                HttpStatus.OK
+        )
+    }
+
+    @DeleteMapping("/farms/{idFarm}")
+    fun deleteFarm(@PathVariable idFarm: Long): ResponseEntity<Any> {
+        return ResponseEntity(
+                this.shrimpFarmService.deleteFarm(idFarm),
                 HttpStatus.OK
         )
     }
@@ -46,6 +73,34 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
     fun calculateFarmTotalSize(@PathVariable idFarm: Long): ResponseEntity<Any> {
         return ResponseEntity(
                 this.shrimpFarmService.calculateFarmTotalSize(idFarm),
+                HttpStatus.OK
+        )
+    }
+
+
+    /*
+        Ponds
+     */
+    @PostMapping("/ponds")
+    fun createPond(@RequestBody pondDto: PondDto): ResponseEntity<Any> {
+        return ResponseEntity(
+                this.shrimpFarmService.savePond(pondDto),
+                HttpStatus.CREATED
+        )
+    }
+
+    @PutMapping("/ponds")
+    fun updatePond(@RequestBody pondDto: PondDto): ResponseEntity<Any> {
+        return ResponseEntity(
+                this.shrimpFarmService.savePond(pondDto),
+                HttpStatus.OK
+        )
+    }
+
+    @DeleteMapping("/ponds/{idPond}")
+    fun deletePond(@PathVariable idPond: Long): ResponseEntity<Any> {
+        return ResponseEntity(
+                this.shrimpFarmService.deletePond(idPond),
                 HttpStatus.OK
         )
     }

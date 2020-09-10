@@ -1,7 +1,12 @@
 package com.cargill.challenge.shrimp.service
 
+import com.cargill.challenge.shrimp.dto.FarmDto
 import com.cargill.challenge.shrimp.dto.FarmTotalSizeDto
+import com.cargill.challenge.shrimp.dto.PondDto
 import com.cargill.challenge.shrimp.dto.PondProj
+import com.cargill.challenge.shrimp.model.Farm
+import com.cargill.challenge.shrimp.model.Farmer
+import com.cargill.challenge.shrimp.model.Pond
 import com.cargill.challenge.shrimp.repository.FarmRepository
 import com.cargill.challenge.shrimp.repository.FarmerRepository
 import com.cargill.challenge.shrimp.repository.PondRepository
@@ -17,6 +22,9 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
                             private val pondRepository: PondRepository
 ) : ShrimpFarmService {
 
+    /*
+        Farmer
+     */
     @Transactional(readOnly = true)
     override fun <T> findFarmerById(projection: Class<T>, id: Long): ApiResponse<T> {
         return ApiResponse(
@@ -40,6 +48,35 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
                 this.farmerRepository.findAllByDeleted(projection)
         )
     }
+
+    /*
+        Farm
+     */
+    @Transactional
+    override fun saveFarm(farmDto: FarmDto): ApiResponse<Long> {
+        val farm = if (farmDto.id == null) {
+            val farmer = this.farmerRepository.findByIdAndDeleted(Farmer::class.java, farmDto.idFarmer!!)
+            Farm(farmDto.id, farmDto.name, farmer)
+        } else {
+            val f =this.farmRepository.findByIdAndDeleted(Farm::class.java, farmDto.id)
+            f.name = farmDto.name
+            f
+        }
+
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.farmRepository.save(farm).id
+        )
+    }
+
+    @Transactional
+    override fun deleteFarm(id: Long): ApiResponse<Long> {
+        val farm = this.farmRepository.findByIdAndDeleted(Farm::class.java, id)
+        farm.deleted = true
+        this.farmRepository.save(farm)
+        return ApiResponse(ResponseCode.SUCCESS.code, id)
+    }
+
 
     @Transactional(readOnly = true)
     override fun <T> findFarmById(projection: Class<T>, id: Long): ApiResponse<T> {
@@ -79,6 +116,35 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
                         farmTotalSize
                 )
         )
+    }
+
+    /*
+        Pond
+     */
+    @Transactional
+    override fun savePond(pondDto: PondDto): ApiResponse<Long> {
+        val pond = if (pondDto.id == null) {
+            val farm = this.farmRepository.findByIdAndDeleted(Farm::class.java, pondDto.idFarm!!)
+            Pond(pondDto.id, pondDto.name, BigDecimal(pondDto.size), farm)
+        } else {
+            val p = this.pondRepository.findByIdAndDeleted(Pond::class.java, pondDto.id)
+            p.name = pondDto.name
+            p.size = BigDecimal(pondDto.size)
+            p
+        }
+
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.pondRepository.save(pond).id
+        )
+    }
+
+    @Transactional
+    override fun deletePond(id: Long): ApiResponse<Long> {
+        val pond = this.pondRepository.findByIdAndDeleted(Pond::class.java, id)
+        pond.deleted = true
+        this.pondRepository.save(pond)
+        return ApiResponse(ResponseCode.SUCCESS.code, id)
     }
 
     @Transactional(readOnly = true)
