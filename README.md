@@ -49,6 +49,8 @@
     LC_CTYPE="en_US.UTF-8";      
 * Change to the shrimp-farm-app-master/target directory
 * To run the server, execute the command with the correct password(for postgres user) and port(of database server):  
-java -jar shrimp-farm-app-1.0.0.jar --spring.datasource.password=pgs.,019! --spring.datasource.url=jdbc:postgresql://localhost:5433/cargill_shrimp_farm_db    
-* To read the Api docs:  
+java -jar shrimp-farm-app-1.0.0.jar --spring.datasource.password=pgs.,019! --spring.datasource.url=jdbc:postgresql://localhost:5433/cargill_shrimp_farm_db
+* The default base URL for API is:  
+  http://localhost:8081/cargill-shrimp-farm/api/v1.0    
+* To read (and test) the Api docs:  
 http://localhost:8081/cargill-shrimp-farm/swagger-ui.html
