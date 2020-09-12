@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "pond")
 class Pond (
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pond_generator")
     @SequenceGenerator(name = "pond_generator", sequenceName = "pond_seq", allocationSize = 1, initialValue = 1)
     @Column(name = "id", updatable = false, nullable = false)

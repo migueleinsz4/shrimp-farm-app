@@ -1,6 +1,6 @@
 # Shrimp Farm App Challenge
 
-### Reference Documentation
+### Reference Documentation (API)
 
 ##### Technology:
 
@@ -8,6 +8,7 @@
 * Kotlin 1.3
 * Maven 3
 * Spring Boot 2.3
+* Spring Data JPA 2.3
 * JUnit 5
 
 ##### Guidelines:
@@ -23,6 +24,7 @@
 * REST Api
 * CRUD on farms and ponds
 * Calculate total size of farm
+* Swagger Api documentation
 
 ##### Compile and Build:
 
@@ -38,3 +40,4 @@
 
 * Change to the shrimp-farm-app-master/target directory
 * To run the server, execute the command: java -jar shrimp-farm-app-1.0.0.jar --server.port=8081
+* To read the Api docs: http://localhost:8081/cargill-shrimp-farm/swagger-ui.html

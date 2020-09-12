@@ -37,17 +37,19 @@ class ShrimpFarmApplicationTests(
 	@Test
 	@Transactional(readOnly = true)
 	fun findAllFarmsByFarmerTest() {
-		val result = this.shrimpFarmService.findAllFarmsByFarmer(FarmProj::class.java, 2L)
+		val result = this.shrimpFarmService.findAllFarmsByFarmer(FarmProj::class.java, 1L)
 		println("Result:")
 		println(getJsonString(result))
+		Assertions.assertEquals(2, result.content?.size);
 	}
 
 	@Test
 	@Transactional(readOnly = true)
 	fun findAllPondsByFarmTest() {
-		val result = this.shrimpFarmService.findAllPondsByFarm(PondProj::class.java, 3L)
+		val result = this.shrimpFarmService.findAllPondsByFarm(PondProj::class.java, 1L)
 		println("Result:")
 		println(getJsonString(result))
+		Assertions.assertEquals(3, result.content?.size)
 	}
 
 	fun generateFarmerJon(): FarmerProj {

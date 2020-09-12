@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository
 interface FarmRepository : JpaRepository<Farm, Long> {
     fun <T> findByIdAndDeleted(projection: Class<T>, id: Long, deleted: Boolean = false): T
     fun <T> findAllByDeleted(projection: Class<T>, deleted: Boolean = false): MutableList<T>
+    fun <T> findAllByNameContainingIgnoreCaseAndFarmerIdAndDeleted(projection: Class<T>, name: String, idFarmer: Long, deleted: Boolean = false): MutableList<T>
     fun <T> findAllByFarmerIdAndDeleted(projection: Class<T>, idFarmer: Long, deleted: Boolean = false): MutableList<T>
 }

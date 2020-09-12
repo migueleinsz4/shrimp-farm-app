@@ -8,7 +8,10 @@ interface PondProj {
     val name: String
     val size: BigDecimal
     val areaUnit: String
-    val idFarm: Long?
+    val farmId: Long
         @Value("#{target.farm.id}")
-        get() = null
+        get() = 0L
+    val farmName: String
+        @Value("#{target.farm.name}")
+        get() = ""
 }

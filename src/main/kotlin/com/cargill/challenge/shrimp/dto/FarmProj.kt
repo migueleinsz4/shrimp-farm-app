@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Value
 interface FarmProj {
     val id: Long
     val name: String
-    val idFarmer: Long?
+    val farmerId: Long
         @Value("#{target.farmer.id}")
-        get() = null
+        get() = 0L
+    val farmerName: String
+        @Value("#{target.farmer.name}")
+        get() = ""
 }

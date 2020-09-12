@@ -73,6 +73,7 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
     override fun deleteFarm(id: Long): ApiResponse<Long> {
         val farm = this.farmRepository.findByIdAndDeleted(Farm::class.java, id)
         farm.deleted = true
+        farm.ponds?.forEach { it.deleted = true }
         this.farmRepository.save(farm)
         return ApiResponse(ResponseCode.SUCCESS.code, id)
     }
@@ -91,6 +92,14 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
         return ApiResponse(
                 ResponseCode.SUCCESS.code,
                 this.farmRepository.findAllByDeleted(projection)
+        )
+    }
+
+    @Transactional(readOnly = true)
+    override fun <T> findAllFarmsByNameAndFarmer(projection: Class<T>, name: String, idFarmer: Long): ApiResponse<List<T>> {
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.farmRepository.findAllByNameContainingIgnoreCaseAndFarmerIdAndDeleted(projection, name, idFarmer)
         )
     }
 
@@ -161,6 +170,22 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
         return ApiResponse(
                 ResponseCode.SUCCESS.code,
                 this.pondRepository.findAllByFarmIdAndDeleted(projection, idFarm)
+        )
+    }
+
+    @Transactional(readOnly = true)
+    override fun <T> findAllPondsByNameAndFarmer(projection: Class<T>, name: String, idFarmer: Long): ApiResponse<List<T>> {
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.pondRepository.findAllByNameContainingIgnoreCaseAndFarmFarmerIdAndDeleted(projection, name, idFarmer)
+        )
+    }
+
+    @Transactional(readOnly = true)
+    override fun <T> findAllPondsByFarmer(projection: Class<T>, idFarmer: Long): ApiResponse<List<T>> {
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.pondRepository.findAllByFarmFarmerIdAndDeleted(projection, idFarmer)
         )
     }
 

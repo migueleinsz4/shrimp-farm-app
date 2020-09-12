@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@CrossOrigin(origins = ["*"])
 @RequestMapping("/api/v1.0")
 class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
     /*
@@ -56,9 +57,11 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
 
     @GetMapping("/farms", "/farms/{idFarm}")
     fun findFarms(@PathVariable(required = false) idFarm: Long?,
-                  @RequestParam(required = false) idFarmer: Long?): ResponseEntity<Any> {
+                  @RequestParam(required = false) idFarmer: Long?,
+                  @RequestParam(required = false) farmName: String?): ResponseEntity<Any> {
         val result = when {
             idFarm != null -> this.shrimpFarmService.findFarmById(FarmProj::class.java, idFarm)
+            farmName != null && idFarmer != null -> this.shrimpFarmService.findAllFarmsByNameAndFarmer(FarmProj::class.java, farmName, idFarmer)
             idFarmer != null -> this.shrimpFarmService.findAllFarmsByFarmer(FarmProj::class.java, idFarmer)
             else -> this.shrimpFarmService.findAllFarms(FarmProj::class.java)
         }
@@ -76,7 +79,6 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
                 HttpStatus.OK
         )
     }
-
 
     /*
         Ponds
@@ -107,10 +109,14 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
 
     @GetMapping("/ponds", "/ponds/{idPond}")
     fun findPonds(@PathVariable(required = false) idPond: Long?,
-                  @RequestParam(required = false) idFarm: Long?): ResponseEntity<Any> {
+                  @RequestParam(required = false) idFarm: Long?,
+                  @RequestParam(required = false) idFarmer: Long?,
+                  @RequestParam(required = false) pondName: String?): ResponseEntity<Any> {
         val result = when {
             idPond != null -> this.shrimpFarmService.findPondById(PondProj::class.java, idPond)
             idFarm != null -> this.shrimpFarmService.findAllPondsByFarm(PondProj::class.java, idFarm)
+            pondName != null && idFarmer != null -> this.shrimpFarmService.findAllPondsByNameAndFarmer(PondProj::class.java, pondName, idFarmer)
+            idFarmer != null -> this.shrimpFarmService.findAllPondsByFarmer(PondProj::class.java, idFarmer)
             else -> return ResponseEntity(
                     ApiResponse(ResponseCode.GENERAL_FAILURE.code, ""),
                     HttpStatus.INTERNAL_SERVER_ERROR
