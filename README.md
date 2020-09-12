@@ -9,6 +9,7 @@
 * Maven 3
 * Spring Boot 2.3
 * Spring Data JPA 2.3
+* PostgreSQL 11.2
 * JUnit 5
 
 ##### Guidelines:
@@ -30,6 +31,7 @@
 
 * Install JDK 11
 * Install Maven 3
+* Install PostgreSQL 11
 * Download code from [GitHub](https://github.com/migueleinsz4/shrimp-farm-app) as zip file
 * Unzip the zip file, you get the shrimp-farm-app-master directory
 * Change to the shrimp-farm-app-master directory 
@@ -38,6 +40,15 @@
 
 ##### Run:
 
+* Create the database:  
+    CREATE DATABASE "cargill_shrimp_farm_db" WITH
+    OWNER=postgres
+    TEMPLATE=template0
+    ENCODING=UTF8
+    LC_COLLATE="en_US.UTF-8"
+    LC_CTYPE="en_US.UTF-8";      
 * Change to the shrimp-farm-app-master/target directory
-* To run the server, execute the command: java -jar shrimp-farm-app-1.0.0.jar --server.port=8081
-* To read the Api docs: http://localhost:8081/cargill-shrimp-farm/swagger-ui.html
+* To run the server, execute the command with the correct password(for postgres user) and port(of database server):  
+java -jar shrimp-farm-app-1.0.0.jar --spring.datasource.password=pgs.,019! --spring.datasource.url=jdbc:postgresql://localhost:5433/cargill_shrimp_farm_db    
+* To read the Api docs:  
+http://localhost:8081/cargill-shrimp-farm/swagger-ui.html
