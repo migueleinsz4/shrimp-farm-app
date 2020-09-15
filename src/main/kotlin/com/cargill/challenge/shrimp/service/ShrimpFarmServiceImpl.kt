@@ -54,15 +54,18 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
      */
     @Transactional
     override fun saveFarm(farmDto: FarmDto): ApiResponse<Long> {
-        val farm = if (farmDto.id == null) {
-            val farmer = this.farmerRepository.findByIdAndDeleted(Farmer::class.java, farmDto.idFarmer!!)
-            Farm(farmDto.id, farmDto.name, farmer)
-        } else {
-            val f =this.farmRepository.findByIdAndDeleted(Farm::class.java, farmDto.id)
-            f.name = farmDto.name
-            f
-        }
+        val farmer = this.farmerRepository.findByIdAndDeleted(Farmer::class.java, farmDto.idFarmer!!)
+        val farm = Farm(null, farmDto.name, farmer)
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.farmRepository.save(farm).id
+        )
+    }
 
+    @Transactional
+    override fun saveFarm(id: Long, farmDto: FarmDto): ApiResponse<Long> {
+        val farm = this.farmRepository.findByIdAndDeleted(Farm::class.java, id)
+        farm.name = farmDto.name
         return ApiResponse(
                 ResponseCode.SUCCESS.code,
                 this.farmRepository.save(farm).id
@@ -133,15 +136,20 @@ class ShrimpFarmServiceImpl(private val farmerRepository: FarmerRepository,
      */
     @Transactional
     override fun savePond(pondDto: PondDto): ApiResponse<Long> {
-        val pond = if (pondDto.id == null) {
-            val farm = this.farmRepository.findByIdAndDeleted(Farm::class.java, pondDto.idFarm!!)
-            Pond(pondDto.id, pondDto.name, BigDecimal(pondDto.size), farm)
-        } else {
-            val p = this.pondRepository.findByIdAndDeleted(Pond::class.java, pondDto.id)
-            p.name = pondDto.name
-            p.size = BigDecimal(pondDto.size)
-            p
-        }
+        val farm = this.farmRepository.findByIdAndDeleted(Farm::class.java, pondDto.idFarm!!)
+        val pond = Pond(null, pondDto.name, BigDecimal(pondDto.size), farm)
+
+        return ApiResponse(
+                ResponseCode.SUCCESS.code,
+                this.pondRepository.save(pond).id
+        )
+    }
+
+    @Transactional
+    override fun savePond(id: Long, pondDto: PondDto): ApiResponse<Long> {
+        val pond = this.pondRepository.findByIdAndDeleted(Pond::class.java, id)
+        pond.name = pondDto.name
+        pond.size = BigDecimal(pondDto.size)
 
         return ApiResponse(
                 ResponseCode.SUCCESS.code,

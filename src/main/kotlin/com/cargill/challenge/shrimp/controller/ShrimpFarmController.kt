@@ -39,10 +39,10 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
         )
     }
 
-    @PutMapping("/farms")
-    fun updateFarm(@RequestBody farmDto: FarmDto): ResponseEntity<Any> {
+    @PutMapping("/farms/{idFarm}")
+    fun updateFarm(@PathVariable idFarm: Long, @RequestBody farmDto: FarmDto): ResponseEntity<Any> {
         return ResponseEntity(
-                this.shrimpFarmService.saveFarm(farmDto),
+                this.shrimpFarmService.saveFarm(idFarm, farmDto),
                 HttpStatus.OK
         )
     }
@@ -91,10 +91,10 @@ class ShrimpFarmController(private val shrimpFarmService: ShrimpFarmService) {
         )
     }
 
-    @PutMapping("/ponds")
-    fun updatePond(@RequestBody pondDto: PondDto): ResponseEntity<Any> {
+    @PutMapping("/ponds/{idPond}")
+    fun updatePond(@PathVariable idPond: Long, @RequestBody pondDto: PondDto): ResponseEntity<Any> {
         return ResponseEntity(
-                this.shrimpFarmService.savePond(pondDto),
+                this.shrimpFarmService.savePond(idPond, pondDto),
                 HttpStatus.OK
         )
     }

@@ -13,6 +13,7 @@ interface ShrimpFarmService {
     fun <T> findAllFarmers(projection: Class<T>): ApiResponse<List<T>>
     // Farm
     fun saveFarm(farmDto: FarmDto): ApiResponse<Long>
+    fun saveFarm(id: Long, farmDto: FarmDto): ApiResponse<Long>
     fun deleteFarm(id: Long): ApiResponse<Long>
     fun <T> findFarmById(projection: Class<T>, id: Long): ApiResponse<T>
     fun <T> findAllFarms(projection: Class<T>): ApiResponse<List<T>>
@@ -21,6 +22,7 @@ interface ShrimpFarmService {
     fun calculateFarmTotalSize(id: Long, areaUnit: String = AreaUnit.HECTARE.name): ApiResponse<FarmTotalSizeDto>
     // Pond
     fun savePond(pondDto: PondDto): ApiResponse<Long>
+    fun savePond(id: Long, pondDto: PondDto): ApiResponse<Long>
     fun deletePond(id: Long): ApiResponse<Long>
     fun <T> findPondById(projection: Class<T>, id: Long): ApiResponse<T>
     fun <T> findAllPondsByFarm(projection: Class<T>, idFarm: Long): ApiResponse<List<T>>
